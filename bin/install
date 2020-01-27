@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+set \
+  -o nounset \
+  -o pipefail \
+  -o errexit
+
+app_name="golangci-lint"
+
+install_golangci_lint() {
+  local -r install_type=$1
+  local -r version=$2
+  local -r install_path=$3
+
+  local -r bin_install_path="${install_path}/bin"
+  local -r binary_path="${bin_install_path}/${app_name}"
+
+  local tmp_download_dir
+  if [[ -z "${TMPDIR}" ]]; then
+    tmp_download_dir=$(mktemp -d -t ${app_name}_XXXXXX)
+  else
+    tmp_download_dir=${TMPDIR}
+  fi
+
+  local -r platform="$(get_platform)"
+  local -r filename="$(get_filename $version $platform)"
+  local -r download_url="$(get_download_url ${version} ${platform})"
+  local -r download_path="${tmp_download_dir}/${filename}"
+
+  echo "Downloading ${app_name} from ${download_url} to ${download_path}"
+  curl -sSLo ${download_path} ${download_url}
+
+  echo "Creating bin directory"
+  mkdir -p "${bin_install_path}"
+
+  echo "Cleaning previous binaries"
+  rm -f ${binary_path} 2>/dev/null || true
+
+  echo "Copying binary"
+  tar xzf ${download_path} --directory ${tmp_download_dir}
+  cp ${tmp_download_dir}/${filename%.tar.gz}/${app_name} ${bin_install_path}
+  chmod +x ${binary_path}
+
+  echo "Cleaning up downloads"
+  rm -f "${download_path}"
+}
+
+get_platform() {
+  uname | tr '[:upper:]' '[:lower:]'
+}
+
+get_filename() {
+  local -r version="$1"
+  local -r platform="$2"
+
+  echo "${app_name}-${version}-${platform}-amd64.tar.gz"
+}
+
+get_download_url() {
+  local -r version="$1"
+  local -r platform="$2"
+  local -r filename="$(get_filename $version $platform)"
+
+  echo "https://github.com/golangci/golangci-lint/releases/download/v${version}/${filename}"
+}
+
+install_golangci_lint $ASDF_INSTALL_TYPE $ASDF_INSTALL_VERSION $ASDF_INSTALL_PATH
