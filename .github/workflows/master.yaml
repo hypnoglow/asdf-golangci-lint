@@ -1,7 +1,7 @@
 # GitHub Actions
 # https://help.github.com/en/actions/automating-your-workflow-with-github-actions
 
-name: main
+name: master
 on:
   - push
 
