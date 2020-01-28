@@ -1,5 +1,7 @@
 # asdf-golangci-lint
 
+![Build Status](https://github.com/hypnoglow/asdf/workflows/main/badge.svg)
+
 [golangci-lint](https://github.com/golangci/golangci-lint) plugin for [asdf](https://github.com/asdf-vm/asdf) version manager.
 
 ## Install

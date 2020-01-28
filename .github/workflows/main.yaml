@@ -1,0 +1,18 @@
+# GitHub Actions
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions
+
+name: main
+on:
+  - push
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: test asdf plugin
+        uses: asdf-vm/actions/plugin-test@v1.0.0
+        with:
+          command: "golangci-lint version"
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
