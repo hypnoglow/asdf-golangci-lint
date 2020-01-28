@@ -16,10 +16,10 @@ install_golangci_lint() {
   local -r binary_path="${bin_install_path}/${app_name}"
 
   local tmp_download_dir
-  if [[ -z "${TMPDIR}" ]]; then
-    tmp_download_dir=$(mktemp -d -t ${app_name}_XXXXXX)
-  else
+  if [[ -n "${TMPDIR:-}" ]]; then
     tmp_download_dir=${TMPDIR}
+  else
+    tmp_download_dir=$(mktemp -d -t ${app_name}_XXXXXX)
   fi
 
   local -r platform="$(get_platform)"
