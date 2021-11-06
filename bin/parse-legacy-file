@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+get_legacy_version() {
+  local file current_version
+
+  file="$1"
+  current_version="$(awk -F: '/golangci-lint-version/{gsub("#.*$", "", $0); print $2}' "$file")"
+  # remove leading whitespace characters
+  current_version="${current_version#"${current_version%%[![:space:]]*}"}"
+  # remove trailing whitespace characters
+  current_version="${current_version%"${current_version##*[![:space:]]}"}"
+
+  case "$current_version" in
+    *.x*)
+      printf "latest:%s" "${current_version%.x}"
+      ;;
+    *)
+      printf "%s" "$current_version"
+      ;;
+  esac
+}
+
+get_legacy_version "$1"
