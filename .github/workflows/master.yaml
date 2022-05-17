@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: test asdf plugin
-        uses: asdf-vm/actions/plugin-test@v1.0.0
+        uses: asdf-vm/actions/plugin-test@v1
         with:
           command: "golangci-lint version"
-        env:
-          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
