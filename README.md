@@ -1,6 +1,6 @@
 # asdf-golangci-lint
 
-![Maintenance](https://img.shields.io/maintenance/yes/2023)
+![Maintenance](https://img.shields.io/maintenance/yes/2024)
 ![Build Status](https://github.com/hypnoglow/asdf-golangci-lint/workflows/master/badge.svg?branch=master)
 
 [golangci-lint](https://github.com/golangci/golangci-lint) plugin for [asdf](https://github.com/asdf-vm/asdf) version manager.
