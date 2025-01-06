@@ -28,7 +28,7 @@ install_golangci_lint() {
   local -r download_path="${tmp_download_dir}/${filename}"
 
   echo "Downloading ${app_name} from ${download_url} to ${download_path}"
-  curl -sSLo ${download_path} ${download_url}
+  curl --fail -sSLo ${download_path} ${download_url}
 
   echo "Creating bin directory"
   mkdir -p "${bin_install_path}"
