@@ -8,7 +8,7 @@
 ## Install
 
 ```shell
-asdf plugin add golangci-lint https://github.com/hypnoglow/asdf-golangci-lint.git
+asdf plugin add golangci-lint
 ```
 
 ## Usage
